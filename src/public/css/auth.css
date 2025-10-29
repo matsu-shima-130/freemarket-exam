@@ -1,0 +1,93 @@
+/* 中央のフォーム */
+.auth-container {
+    max-width: 600px;
+    margin: 80px auto;
+    text-align: left;
+}
+
+/* タイトル */
+.auth-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* ラベルと入力欄 */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 10px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* 登録ボタン */
+.btn-submit {
+    width: 100%;
+    background-color: #ff5252;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 80px;
+}
+
+/* ログインリンク */
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-link a {
+    font-size: 14px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* エラー用 */
+.form-error {
+    color: #e53935;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* 入力情報が誤ってる場合のエラー */
+.form-error--global {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: #ffecec;
+    color: #d93025;
+    border: 1px solid #ffb3b3;
+    border-left: 4px solid #ff5252;
+    padding: 12px 14px;
+    border-radius: 6px;
+    margin: -8px 0 24px;
+    font-size: 14px;
+}
+
+/* エラー時に入力枠を強調 */
+input.is-invalid {
+    border-color: #ff5a5a;
+    box-shadow: 0 0 0 3px rgba(255, 90, 90, 0.12);
+}

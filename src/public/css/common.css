@@ -1,0 +1,127 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #fff;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.header {
+    background: #000;
+}
+
+.header__inner {
+    width: 100%;
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 55px;
+}
+
+.header__logo img {
+    height: 25px;
+    display: block;
+}
+
+.header__search{
+    display: flex;
+    justify-content: center;
+}
+
+.header__search input[type="text"] {
+    width: 100%;
+    max-width: 480px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    padding: 0 12px;
+    outline: none;
+    color: #000;
+}
+
+.header__nav {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header__nav .logout-form {
+    display: inline;
+}
+
+.header-link {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.header-link:hover {
+    opacity: .85;
+}
+
+.header__nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.header__nav .btn-sell {
+    color: #000;
+    background: #fff;
+    border: 1px solid #000;
+    padding: 0 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+}
+
+@media (min-width: 1400px) {
+    .header__search input[type="text"] {
+        max-width: 560px;
+    }
+}
+
+/* プレースホルダーの文字を黒にするための処理 */
+.header__search input[type="text"]::placeholder {
+    color: #000;
+    opacity: 1;
+}
+
+.header__search input[type="text"]::-webkit-input-placeholder {
+    color: #000;
+    opacity: 1;
+}
+
+.header__search input[type="text"]::-moz-placeholder {
+    color: #000;
+    opacity: 1;
+}
+
+.header__search input[type="text"]:-ms-input-placeholder {
+    color: #000;
+}
+
+.header__search input[type="text"]::-ms-input-placeholder {
+    color: #000;
+}
