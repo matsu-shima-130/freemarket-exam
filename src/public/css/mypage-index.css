@@ -1,0 +1,189 @@
+.mypage {
+    padding: 36px 0 40px;
+}
+
+.mypage__inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* ===== ヘッダー部分 ===== */
+
+.mypage-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 150px;
+}
+
+.mypage-header__right{
+    margin-left: 280px;
+}
+
+.mypage-header__left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.mypage-header__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mypage-header__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mypage-header__avatarPh {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #d5d5d5;
+}
+
+.mypage-header__name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* 右側の「プロフィールを編集」ボタン */
+.mypage-header__editBtn {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 2px solid #ff5252;
+    color: #ff5252;
+    background: #fff;
+    text-decoration: none;
+}
+
+.mypage-header__editBtn:hover {
+    background: #fff5f5;
+}
+
+/* タブ */
+
+.mypage-tabs {
+    position: relative;
+    display: flex;
+    gap: 48px;
+    padding: 16px 0 14px;
+    border-bottom: 2px solid #e5e5e5;
+    padding-left: 60px;
+}
+
+.mypage-tabs--bleed {
+    border-bottom: none;
+}
+
+.mypage-tabs--bleed::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100vw;
+    border-bottom: 2px solid #5F5F5F;
+}
+
+.mypage-tab {
+    text-decoration: none;
+    color: #878787;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.mypage-tab.is-active {
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+/* ===== 商品グリッド ===== */
+
+.mypage-items {
+    padding-top: 24px;
+}
+
+.mypage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+    column-gap: 24px;
+    row-gap: 32px;
+    padding-top: 20px;
+}
+
+.mypage-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.mypage-item__thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+}
+
+.mypage-item__thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mypage-item__thumbPh {
+    color: #555;
+    font-size: 14px;
+}
+
+/* Sold バッジ（左上） */
+.mypage-item__sold {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+}
+
+/* 商品名 */
+.mypage-item__name {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+}
+
+/* 空表示メッセージ */
+.mypage-items__empty {
+    min-height: 120px;
+    font-size: 14px;
+    color: #666;
+}

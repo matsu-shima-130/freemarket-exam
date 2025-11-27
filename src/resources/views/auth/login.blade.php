@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form class="auth-form" method="POST" action="{{ route('login') }}" novalidate>
+    <form class="auth-form" method="POST" action="{{ route('login.attempt') }}" novalidate>
         @csrf
         <div class="form-group">
             <label for="email">メールアドレス</label>

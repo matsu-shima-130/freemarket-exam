@@ -6,6 +6,11 @@
     <title>COACHTECH フリマアプリ</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+
+    {{-- Font Awesome 読み込み --}}
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     @yield('css')
 </head>
 <body>
@@ -22,7 +27,7 @@
 
                 {{-- ログイン後（@auth） --}}
                 @auth
-                    <form class="header__search">
+                    <form class="header__search" method="GET" action="{{ route('items.index') }}">
                         <input type="text" name="keyword" placeholder="なにをお探しですか？">
                     </form>
                     <nav class="header__nav">
@@ -38,13 +43,13 @@
 
                 {{-- ログイン前（@guest） --}}
                 @guest
-                    <form class="header__search">
+                    <form class="header__search" method="GET" action="{{ route('items.index') }}">
                         <input type="text" name="keyword" placeholder="なにをお探しですか？">
                     </form>
                     <nav class="header__nav">
-                        <a href="/login">ログイン</a>
-                        <a href="/register">マイページ</a>
-                        <a href="#" class="btn-sell">出品</a>
+                        <a href="{{ route('login') }}">ログイン</a>
+                        <a href="{{ route('mypage.index') }}">マイページ</a>
+                        <a href="{{ route('sell.create') }}" class="btn-sell">出品</a>
                     </nav>
                 @endguest
             @endif
@@ -52,6 +57,17 @@
     </header>
 
     <main class="main container">
+        {{-- フラッシュメッセージ --}}
+        @if (session('success'))
+            <div class="flash flash--success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+            <div class="flash flash--error">{{ session('error') }}</div>
+        @endif
+        @if (session('status'))
+            <div class="flash flash--success">{{ session('status') }}</div>
+        @endif
+
         @yield('content')
     </main>
 </body>

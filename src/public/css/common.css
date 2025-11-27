@@ -125,3 +125,21 @@ body {
 .header__search input[type="text"]::-ms-input-placeholder {
     color: #000;
 }
+
+.flash {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 12px 0
+}
+
+.flash--success {
+    background: #e8f7ee;
+    color: #136c3b;
+    border: 1px solid #bfe8cf
+}
+
+.flash--error {
+    background: #fdeaea;
+    color: #8a1c1c;
+    border: 1px solid #f4c7c7
+}

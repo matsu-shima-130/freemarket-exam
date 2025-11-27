@@ -10,9 +10,17 @@
 
     <form class="auth-form" method="POST" action="{{ route('register') }}" novalidate>
         @csrf
+
         <div class="form-group">
             <label for="name">ユーザー名</label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ old('name') }}"
+                class="{{ $errors->has('name') ? 'is-invalid' : '' }}"
+                required
+            >
             @error('name')
                 <div class="form-error">{{ $message }}</div>
             @enderror
@@ -20,7 +28,14 @@
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ old('email') }}"
+                class="{{ $errors->has('email') ? 'is-invalid' : '' }}"
+                required
+            >
             @error('email')
                 <div class="form-error">{{ $message }}</div>
             @enderror
@@ -28,7 +43,13 @@
 
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input type="password" id="password" name="password" required>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
+                required
+            >
             @error('password')
                 <div class="form-error">{{ $message }}</div>
             @enderror
@@ -36,14 +57,19 @@
 
         <div class="form-group">
             <label for="password_confirmation">確認用パスワード</label>
-            <input type="password" id="password_confirmation" name="password_confirmation" required>
+            <input
+                type="password"
+                id="password_confirmation"
+                name="password_confirmation"
+                class="{{ $errors->has('password') ? 'is-invalid' : '' }}"
+                required
+            >
         </div>
 
     <button type="submit" class="btn-submit">登録する</button>
 </form>
 
     <p class="auth-link">
-        {{-- いまは route('login') が未定義なので直URLでOK。後でFortify導入後に差し替え --}}
         <a href="/login">ログインはこちら</a>
     </p>
 </div>

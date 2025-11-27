@@ -12,23 +12,13 @@
         @csrf
         @method('PUT')
 
-        {{-- 画像URL + 更新時刻（キャッシュ回避用）を作る --}}
-        @php
-            $path = $profile->avatar_path
-                ? asset('storage/'.$profile->avatar_path)
-                : asset('images/avatar-placeholder.png');
-
-            // updated_at があるときだけ ?v=… を付ける（ないときは付けない）
-            $ver  = $profile->updated_at ? ('?v='.$profile->updated_at->timestamp) : '';
-        @endphp
-
         <div class="avatar-row">
             <img
                 class="avatar-preview"
                 src="{{ $avatarUrl . $ver }}"
                 alt="プロフィール画像"
             >
-            <input id="avatar" type="file" name="avatar" accept="image/*" class="visually-hidden">
+            <input id="avatar" type="file" name="avatar" accept=".jpg,.jpeg,.png" class="visually-hidden">
             <label for="avatar" class="btn-avatar">画像を選択する</label>
         </div>
             @error('avatar')
@@ -62,4 +52,30 @@
         <button type="submit" class="btn-submit">更新する</button>
     </form>
 </div>
+
+{{-- アバター画像プレビュー用JS --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput   = document.getElementById('avatar');
+        const imgPreview  = document.querySelector('.avatar-preview');
+
+        if (!fileInput || !imgPreview) return;
+
+        fileInput.addEventListener('change', function (e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            // 画像ファイルじゃなければ何もしない
+            if (!file.type.startsWith('image/')) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                imgPreview.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
 @endsection
