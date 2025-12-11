@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePurchasesTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
@@ -18,7 +18,7 @@ class CreatePurchasesTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('purchases');
     }

@@ -58,12 +58,12 @@ class Item extends Model
     {
         // 1) ステータスで即判定
         if ((int) ($this->status ?? 0) === 1) {
-        return true;
+            return true;
         }
 
         // 2) purchase を既に読み込んでいれば追加クエリなしで判定
         if ($this->relationLoaded('purchase')) {
-        return (bool) $this->purchase; // null なら false, モデルあれば true
+            return (bool) $this->purchase; // null なら false, モデルあれば true
         }
 
         // 3) 読み込んでいなければ exists() で最小限のクエリ

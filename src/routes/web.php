@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
@@ -15,6 +16,18 @@ use App\Http\Controllers\AddressController;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 
+// ★ デザイン確認用（ブラウザで http://localhost/debug/verify-email にアクセス）
+Route::view('/debug/verify-email', 'auth.verify-email')->name('debug.verify-email');
+
+Route::get('/mail-test', function () {
+    Mail::raw('Mailtrap テストメールです。', function ($message) {
+        $message->to('test@example.com')
+                ->subject('Mailtrap テストメール');
+    });
+
+    return 'テストメールを送信しました。ブラウザはこのメッセージが出ればOK！';
+});
+
 // 未ログイン時のみアクセスOK（登録/ログイン）
 Route::middleware('guest')->group(function () {
     // 会員登録
@@ -26,14 +39,18 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.attempt');
 });
 
-// ログイン必須エリア
+// auth だけあればOKなもの（＝メール未認証でも使えるもの）
 Route::middleware('auth')->group(function () {
+    // ログアウトだけは「未認証でも」押させてあげたいのでここに置いておく
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+});
+
+// ログイン + メール認証必須エリア
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage.index');
 
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
-
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     Route::get('/sell',  [ExhibitionController::class, 'create'])->name('sell.create');
     Route::post('/sell', [ExhibitionController::class, 'store'])->name('sell.store');

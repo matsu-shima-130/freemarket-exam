@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use Illuminate\Http\Request;
+use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
@@ -20,14 +20,9 @@ class AddressController extends Controller
     }
 
     /* 住所更新処理 */
-    public function update(Request $request, Item $item)
+    public function update(AddressRequest $request, Item $item)
     {
-        // バリデーション
-        $validated = $request->validate([
-            'postal_code' => ['required', 'string', 'max:10'],
-            'address'     => ['required', 'string', 'max:255'],
-            'building'    => ['nullable', 'string', 'max:255'],
-        ]);
+        $validated = $request->validated();
 
         $user    = Auth::user();
         $profile = $user->profile;

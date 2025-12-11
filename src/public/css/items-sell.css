@@ -141,11 +141,6 @@
     cursor: pointer;
 }
 
-.chip__checkbox:checked+.chip__label {
-    background: #ff5252;
-    color: #fff;
-}
-
 .chip__label {
     display: inline-block;
     padding: 4px 12px;

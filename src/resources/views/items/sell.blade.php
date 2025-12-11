@@ -58,6 +58,9 @@
                                         <span class="chip__label">{{ $category->name }}</span>
                                     </label>
                                 @endforeach
+                                @error('category_ids')
+                                    <div class="form-error">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                 </div>
@@ -77,6 +80,9 @@
                             <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>やや傷や汚れあり</option>
                             <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>状態が悪い</option>
                         </select>
+                        @error('condition')
+                                <div class="form-error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </section>

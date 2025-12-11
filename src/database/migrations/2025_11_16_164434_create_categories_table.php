@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCategoriesTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();

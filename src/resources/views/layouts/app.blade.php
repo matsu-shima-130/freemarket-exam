@@ -23,7 +23,7 @@
             </div>
 
             {{-- 現在のページが login または register の場合はヘッダー非表示 --}}
-            @if (!Request::is('login') && !Request::is('register'))
+            @if (!Request::is('login') && !Request::is('register') && !Request::is('email/verify'))
 
                 {{-- ログイン後（@auth） --}}
                 @auth
@@ -65,8 +65,14 @@
             <div class="flash flash--error">{{ session('error') }}</div>
         @endif
         @if (session('status'))
-            <div class="flash flash--success">{{ session('status') }}</div>
-        @endif
+        <div class="flash flash--success">
+            @if (session('status') === 'verification-link-sent')
+                認証メールを再送しました。メールボックスをご確認ください。
+            @else
+                {{ session('status') }}
+            @endif
+        </div>
+    @endif
 
         @yield('content')
     </main>

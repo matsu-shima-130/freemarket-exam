@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateItemsTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
@@ -16,13 +16,13 @@ class CreateItemsTable extends Migration
             $table->string('image_path')->nullable();
             $table->text('description');
             $table->unsignedInteger('price');
-            $table->string('condition');
+            $table->unsignedTinyInteger('condition');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('items');
     }

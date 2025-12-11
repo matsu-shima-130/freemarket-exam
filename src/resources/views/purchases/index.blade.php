@@ -34,9 +34,12 @@
                             class="purchase-select"
                             form="purchase-form">
                         <option value="">選択してください</option>
-                        <option value="1">コンビニ払い</option>
-                        <option value="2">カード払い</option>
+                        <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ払い</option>
+                        <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード払い</option>
                     </select>
+                    @error('payment_method')
+                        <p class="purchase-error">{{ $message }}</p>
+                    @enderror
                 </div>
             </section>
 

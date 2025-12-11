@@ -20,6 +20,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Item::class);
     }
-
-    protected $with = ['user'];
 }

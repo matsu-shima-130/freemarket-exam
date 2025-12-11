@@ -24,7 +24,7 @@
                 <div class="items__empty"></div>
             @else
                 <div class="items__grid">
-                    @forelse($items as $item)
+                    @foreach ($items as $item)
                         <a href="{{ route('items.show', $item) }}" class="item">
                             <div class="item__thumb">
                                 @if ($item->image_path)
@@ -39,8 +39,7 @@
                             </div>
                             <div class="item__name">{{ $item->name }}</div>
                         </a>
-                        @empty
-                    @endforelse
+                    @endforeach
                 </div>
 
             @endif

@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 
 class RegisteredUserController extends Controller
@@ -26,12 +27,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        event(new Registered($user));
+
         // 自動ログイン
         Auth::login($user);
 
-        // プロフィール編集へ
-        return redirect()
-            ->route('profile.edit')
-            ->with('just_registered', true);
+        // 登録後に「メール認証してください」の画面へ
+        return redirect()->route('verification.notice');
     }
 }

@@ -66,11 +66,11 @@
             >
         </div>
 
-    <button type="submit" class="btn-submit">登録する</button>
-</form>
+        <button type="submit" class="btn-submit">登録する</button>
+    </form>
 
     <p class="auth-link">
-        <a href="/login">ログインはこちら</a>
+        <a href="{{ route('login') }}">ログインはこちら</a>
     </p>
 </div>
 @endsection

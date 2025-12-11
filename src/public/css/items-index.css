@@ -8,12 +8,6 @@
     padding: 0 16px;
 }
 
-:root{
-    --container-max: 1040px;
-    --container-pad: 24px;
-    --logo-block: 100px;
-}
-
 .items__tabs {
     position: relative;
     display: flex;

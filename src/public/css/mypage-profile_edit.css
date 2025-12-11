@@ -56,21 +56,6 @@
     margin-top: 6px;
 }
 
-/* エラー文言（フォーム全体用） */
-.form-error--global {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    background: #ffecec;
-    color: #d93025;
-    border: 1px solid #ffb3b3;
-    border-left: 4px solid #ff5252;
-    padding: 12px 14px;
-    border-radius: 6px;
-    margin: -8px 0 24px;
-    font-size: 14px;
-}
-
 /* 入力枠の強調（バリデーションNG時） */
 input.is-invalid {
     border-color: #ff5a5a;

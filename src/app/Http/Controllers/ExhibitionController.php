@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\ExhibitionRequest;
 use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class ExhibitionController extends Controller
     }
 
     /** 出品登録 */
-    public function store(StoreItemRequest $request)
+    public function store(ExhibitionRequest $request)
     {
         // バリデーション済みの値を取得
         $validated = $request->validated();

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Purchase;
-use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class PurchaseController extends Controller
 {
@@ -21,10 +23,12 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function store(Request $request, Item $item)
+    public function store(PurchaseRequest $request, Item $item)
     {
+        $user = Auth::user();
+
         // 1) 自分の出品は購入NG
-        if ($item->seller_id === auth()->id()) {
+        if ($item->seller_id === $user->id) {
             return back()->with('error', '自分の商品は購入できません。');
         }
 
@@ -34,12 +38,10 @@ class PurchaseController extends Controller
         }
 
         // 3) 支払い方法のバリデーション
-        $validated = $request->validate([
-            'payment_method' => ['required', 'integer', 'in:1,2'],  // 1 or 2 だけ許可
-        ]);
+        $validated = $request->validated();
 
         // 4) プロフィールから住所情報を取得
-        $profile = Auth::user()->profile;
+        $profile = $user->profile;
 
         if (!$profile) {
             // プロフィール未登録ならエラーにして戻す
@@ -50,20 +52,45 @@ class PurchaseController extends Controller
         $shippingAddress = implode("\n", array_filter([
             '〒 ' . $profile->postal_code,
             $profile->address,
-            $profile->building,   // null のときは自動でスキップされる
+            $profile->building,
         ]));
 
         // 6) 購入レコード作成
         Purchase::create([
-            'user_id'         => auth()->id(),
-            'item_id'         => $item->id,
-            'payment_method'  => (int) $validated['payment_method'],
-            'shipping_address'=> $shippingAddress,
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'payment_method' => (int) $validated['payment_method'],
+            'shipping_address' => $shippingAddress,
         ]);
 
-        // 7) 必要ならステータス更新（今はコメントアウトのままでOK）
-        // $item->update(['status' => 1]);
+        // 7)支払い方法 = 1（コンビニ払い）のときは Stripe に飛ばさず、一覧へ戻す
+        if ((int)$validated['payment_method'] === 1) {
+            return redirect()
+                ->route('items.index')
+                ->with('status', 'コンビニ払いでの購入が完了しました。');
+        }
 
-        return redirect()->route('items.index')->with('success', '購入が完了しました。');
+        // それ以外（ここでは 2 = カード払い）は Stripe に飛ばす
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $session = StripeSession::create([
+            'mode' => 'payment',
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                    // 金額は「円 × 100」で指定（例：1000円 → 100000）
+                    'unit_amount' => $item->price * 100,
+                ],
+                'quantity' => 1,
+            ]],
+            'success_url' => route('items.index') . '?success=1',
+            'cancel_url'  => route('purchase.index', $item) . '?canceled=1',
+        ]);
+
+        // 8) Stripe の決済画面へリダイレクト
+        return redirect()->away($session->url);
     }
 }

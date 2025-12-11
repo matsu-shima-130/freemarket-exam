@@ -17,14 +17,11 @@ class ProfileController extends Controller
         $justRegistered = session()->pull('just_registered', false);
         $userNameForForm = $justRegistered ? '' : ($user->name ?? '');
 
-        $avatarUrl = ($profile->avatar_path && Storage::disk('public')->exists($profile->avatar_path))
-            ? asset('storage/'.$profile->avatar_path)
-            : asset('images/avatar-placeholder.png');
-
-        $ver = $profile->updated_at ? ('?v='.$profile->updated_at->timestamp) : '';
-
         return view('mypage.profile_edit', compact(
-            'user', 'profile', 'justRegistered', 'userNameForForm', 'avatarUrl', 'ver'
+            'user',
+            'profile',
+            'justRegistered',
+            'userNameForForm'
         ));
     }
 

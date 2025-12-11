@@ -6,11 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateLikesTable extends Migration
 {
-    public function up(): void
+    public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            // 誰のコメントか／どの商品へのコメントか
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
@@ -19,7 +18,7 @@ class CreateLikesTable extends Migration
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('likes');
     }
