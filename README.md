@@ -87,30 +87,31 @@
 **※ここからは一度 PHP コンテナを出て、ホスト（自分のPCのターミナル）で作業します。**
 
   1. PHPコンテナから退出：
-    ```bash
-    exit
-    ```
+  ```bash
+  exit
+  ```
 
   2. MySQL に root でログイン（パスワードは docker-compose.yml の設定により異なる場合があります）
-    ```bash
-    docker compose exec mysql mysql -u root -proot
-    ```
+  ```bash
+  docker compose exec mysql mysql -u root -proot
+  ```
 
   3. テスト用DB作成
-    ```bash
-     CREATE DATABASE IF NOT EXISTS demo_test;
-     ```
+  ```bash
+  CREATE DATABASE IF NOT EXISTS demo_test;
+  exit
+  ```
 
   4. PHPコンテナに入る
-    ```bash
-    docker-compose exec php bash
-    ```
+  ```bash
+  docker-compose exec php bash
+  ```
 
   5. マイグレーション（testing 環境）
-    ```bash
-    php artisan config:clear
-    php artisan migrate --env=testing
-    ```
+  ```bash
+  php artisan config:clear
+  php artisan migrate --env=testing
+  ```
 
 
 8. 決済処理（Stripe）
@@ -192,9 +193,8 @@
 ## ダミーデータについて
 
 - `php artisan db:seed` を実行すると、以下のテストデータが作成されます。
-  - 商品カテゴリデータ（ファッション / 家電 など）
-- `php artisan db:seed --class=ItemSeeder`を実行すると、以下のテストデータが作成されます。
   - 出品者ユーザー（seller@example.com）
+  - 商品カテゴリデータ（ファッション / 家電 など）
   - ダミー商品データ一式（画像付き）
 
 ## 追加機能
