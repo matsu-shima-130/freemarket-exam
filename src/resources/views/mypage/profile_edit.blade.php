@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="auth-container">
-    <h2 class="auth-title">プロフィール設定</h2>
+    <h1 class="auth-title">プロフィール設定</h1>
 
     <form class="auth-form" method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" novalidate>
         @csrf

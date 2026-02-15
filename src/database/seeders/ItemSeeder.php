@@ -14,14 +14,8 @@ class ItemSeeder extends Seeder
     {
         DB::transaction(function () {
 
-            // 1) 出品者作成（探して、なければ作る）
-            $seller = User::firstOrCreate(
-                ['email' => 'seller@example.com'],
-                [
-                    'name'     => '出品太郎',
-                    'password' => bcrypt('password'),
-                ]
-            );
+            // 1) 出品者取得（UserSeederで作られている前提）
+            $seller = User::where('email', 'seller@example.com')->firstOrFail();
 
             // 2) ダミー商品
             $items = [

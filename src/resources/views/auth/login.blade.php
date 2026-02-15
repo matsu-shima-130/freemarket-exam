@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="auth-container">
-    <h2 class="auth-title">ログイン</h2>
+    <h1 class="auth-title">ログイン</h1>
 
     @if ($errors->has('login'))
         <div class="form-error form-error--global">

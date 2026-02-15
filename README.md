@@ -56,7 +56,6 @@
 
    ```bash
    php artisan db:seed
-   php artisan db:seed --class=ItemSeeder
    ```
 
 6. メール送信設定（Mailtrap）
@@ -80,7 +79,41 @@
   ```
 - 会員登録後、/email/verify に遷移し、Mailtrap の受信ボックスに届いたメールから認証リンクをクリックするとメール認証が完了します。
 
-7. 決済処理（Stripe）
+7. テスト用DBの作成
+
+- テストでは`.env.testing` を利用して `demo_test` データベースに接続します。
+- 初回のみ、MySQL にテスト用DBを作成してください。
+
+**※ここからは一度 PHP コンテナを出て、ホスト（自分のPCのターミナル）で作業します。**
+
+  1. PHPコンテナから退出：
+    ```bash
+    exit
+    ```
+
+  2. MySQL に root でログイン（パスワードは docker-compose.yml の設定により異なる場合があります）
+    ```bash
+    docker compose exec mysql mysql -u root -proot
+    ```
+
+  3. テスト用DB作成
+    ```bash
+     CREATE DATABASE IF NOT EXISTS demo_test;
+     ```
+
+  4. PHPコンテナに入る
+    ```bash
+    docker-compose exec php bash
+    ```
+
+  5. マイグレーション（testing 環境）
+    ```bash
+    php artisan config:clear
+    php artisan migrate --env=testing
+    ```
+
+
+8. 決済処理（Stripe）
 
 - 購入処理には Stripe Checkout（テストモード）を使用しています。
 - Stripe アカウントを作成し、ダッシュボードを テストモード に切り替えます。
@@ -97,7 +130,7 @@
   php artisan config:clear
   ```
 
-8. テスト
+9. テスト
 
 - PHPUnit による Feature テストを実装しています。
   ```bash
@@ -107,9 +140,7 @@
 - 特定のテストクラスだけ実行したい場合は --filter を使用します。
 
   ```bash
-  # ID1 会員登録機能
-  php artisan test --filter=RegisterTest
-
+  特定のテストクラスだけ実行したい場合は --filter を使用します。
   # ID2 ログイン機能
   php artisan test --filter=LoginTest
 
