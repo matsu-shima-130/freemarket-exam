@@ -40,21 +40,12 @@ class PurchaseTest extends TestCase
             'image_path'  => null,
         ]);
 
-        // Stripe のセッション作成をモック（ダミーのURLを返すだけ）
-        Mockery::mock('alias:Stripe\Checkout\Session')
-            ->shouldReceive('create')
-            ->once()
-            ->andReturn((object) [
-                'id'  => 'cs_test_dummy',
-                'url' => 'https://example.test/checkout',
-            ]);
-
         // 1. ユーザーにログインする
         $this->actingAs($buyer);
 
         // 2. 「購入する」ボタン押下に相当する POST
         $response = $this->post(route('purchase.store', $item), [
-            'payment_method' => 2,
+            'payment_method' => 1,
         ]);
 
         // 購入処理が正常に終わってリダイレクトしていること

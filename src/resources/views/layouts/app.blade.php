@@ -1,80 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COACHTECH フリマアプリ</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COACHTECH フリマアプリ</title>
+        <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/common.css') }}">
 
-    {{-- Font Awesome 読み込み --}}
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        {{-- Font Awesome 読み込み --}}
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    @yield('css')
-</head>
-<body>
-    <header class="header">
-        <div class="header__inner">
+        @yield('css')
+    </head>
+    <body>
+        <header class="header">
+            <div class="header__inner">
 
-            {{-- ロゴ部分 --}}
-            <div class="header__logo">
-                <img src="{{ asset('images/logo.svg') }}" alt="COACHTECH ロゴ">
+                {{-- ロゴ部分（これは常に表示） --}}
+                <div class="header__logo">
+                    <a href="{{ route('mypage.index') }}"><img src="{{ asset('images/logo.svg') }}" alt="COACHTECH ロゴ"></a>
+                </div>
+
+                @php
+                    // 「ロゴだけ」のページ判定（ログイン系 + trades）
+                    $isLogoOnlyPage =
+                        Request::is('login')
+                        || Request::is('register')
+                        || Request::is('email/verify')
+                        || Request::is('trades')
+                        || Request::is('trades/*');
+                @endphp
+
+                {{-- ロゴだけページじゃない時だけ、検索やナビを出す --}}
+                @if (!$isLogoOnlyPage)
+
+                    {{-- ログイン後（@auth） --}}
+                    @auth
+                        <form class="header__search" method="GET" action="{{ route('items.index') }}">
+                            <input type="text" name="keyword" placeholder="なにをお探しですか？">
+                        </form>
+
+                        <nav class="header__nav">
+                            <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                                @csrf
+                                <button type="submit" class="header-link">ログアウト</button>
+                            </form>
+
+                            <a href="{{ route('mypage.index') }}" class="header-link">マイページ</a>
+                            <a href="{{ route('sell.create') }}" class="btn-sell">出品</a>
+                        </nav>
+                    @endauth
+
+                    {{-- ログイン前（@guest） --}}
+                    @guest
+                        <form class="header__search" method="GET" action="{{ route('items.index') }}">
+                            <input type="text" name="keyword" placeholder="なにをお探しですか？">
+                        </form>
+
+                        <nav class="header__nav">
+                            <a href="{{ route('login') }}">ログイン</a>
+                            <a href="{{ route('mypage.index') }}">マイページ</a>
+                            <a href="{{ route('sell.create') }}" class="btn-sell">出品</a>
+                        </nav>
+                    @endguest
+
+                @endif
             </div>
+        </header>
 
-            {{-- 現在のページが login または register の場合はヘッダー非表示 --}}
-            @if (!Request::is('login') && !Request::is('register') && !Request::is('email/verify'))
-
-                {{-- ログイン後（@auth） --}}
-                @auth
-                    <form class="header__search" method="GET" action="{{ route('items.index') }}">
-                        <input type="text" name="keyword" placeholder="なにをお探しですか？">
-                    </form>
-                    <nav class="header__nav">
-                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                        @csrf
-                        <button type="submit" class="header-link">ログアウト</button>
-                    </form>
-
-                    <a href="{{ route('mypage.index') }}" class="header-link">マイページ</a>
-                    <a href="{{ route('sell.create') }}" class="btn-sell">出品</a>
-                </nav>
-                @endauth
-
-                {{-- ログイン前（@guest） --}}
-                @guest
-                    <form class="header__search" method="GET" action="{{ route('items.index') }}">
-                        <input type="text" name="keyword" placeholder="なにをお探しですか？">
-                    </form>
-                    <nav class="header__nav">
-                        <a href="{{ route('login') }}">ログイン</a>
-                        <a href="{{ route('mypage.index') }}">マイページ</a>
-                        <a href="{{ route('sell.create') }}" class="btn-sell">出品</a>
-                    </nav>
-                @endguest
+        <main class="main container">
+            {{-- フラッシュメッセージ --}}
+            @if (session('success'))
+                <div class="flash flash--success">{{ session('success') }}</div>
             @endif
-        </div>
-    </header>
-
-    <main class="main container">
-        {{-- フラッシュメッセージ --}}
-        @if (session('success'))
-            <div class="flash flash--success">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
-            <div class="flash flash--error">{{ session('error') }}</div>
-        @endif
-        @if (session('status'))
-        <div class="flash flash--success">
-            @if (session('status') === 'verification-link-sent')
-                認証メールを再送しました。メールボックスをご確認ください。
-            @else
-                {{ session('status') }}
+            @if (session('error'))
+                <div class="flash flash--error">{{ session('error') }}</div>
             @endif
-        </div>
-    @endif
+            @if (session('status'))
+                <div class="flash flash--success">
+                    @if (session('status') === 'verification-link-sent')
+                        認証メールを再送しました。メールボックスをご確認ください。
+                    @else
+                        {{ session('status') }}
+                    @endif
+                </div>
+            @endif
 
-        @yield('content')
-    </main>
-</body>
+            @yield('content')
+        </main>
+
+        @stack('scripts')
+
+    </body>
 </html>

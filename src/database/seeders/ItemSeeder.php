@@ -15,12 +15,13 @@ class ItemSeeder extends Seeder
         DB::transaction(function () {
 
             // 1) 出品者取得（UserSeederで作られている前提）
-            $seller = User::where('email', 'seller@example.com')->firstOrFail();
+            $sellerA = User::where('email', 'seller_a@example.com')->firstOrFail();
+            $sellerB = User::where('email', 'seller_b@example.com')->firstOrFail();
 
             // 2) ダミー商品
             $items = [
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerA->id,
                     'name'        => '腕時計',
                     'brand_name'  => 'Rolax',
                     'description' => 'スタイリッシュなデザインのメンズ腕時計',
@@ -30,7 +31,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/udedokei.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerA->id,
                     'name'        => 'HDD',
                     'brand_name'  => '西芝',
                     'description' => '高速で信頼性の高いハードディスク',
@@ -40,7 +41,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/HDD.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerA->id,
                     'name'        => '玉ねぎ3束',
                     'brand_name'  => 'なし',
                     'description' => '新鮮な玉ねぎ3束のセット',
@@ -50,7 +51,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/tamanegi.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerA->id,
                     'name'        => '革靴',
                     'brand_name'  => '',
                     'description' => 'クラシックなデザインの革靴',
@@ -60,7 +61,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/kawagutu.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerA->id,
                     'name'        => 'ノートPC',
                     'brand_name'  => '',
                     'description' => '高性能なノートパソコン',
@@ -70,7 +71,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/notePC.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerB->id,
                     'name'        => 'マイク',
                     'brand_name'  => 'なし',
                     'description' => '高音質のレコーディング用マイク',
@@ -80,7 +81,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/maiku.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerB->id,
                     'name'        => 'ショルダーバッグ',
                     'brand_name'  => '',
                     'description' => 'おしゃれなショルダーバッグ',
@@ -90,7 +91,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/bag.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerB->id,
                     'name'        => 'タンブラー',
                     'brand_name'  => 'なし',
                     'description' => '使いやすいタンブラー',
@@ -100,7 +101,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/tumbler.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerB->id,
                     'name'        => 'コーヒーミル',
                     'brand_name'  => 'Starbacks',
                     'description' => '手動のコーヒーミル',
@@ -110,7 +111,7 @@ class ItemSeeder extends Seeder
                     'image_path'  => 'images/items/coffee.jpg',
                 ],
                 [
-                    'seller_id'   => $seller->id,
+                    'seller_id'   => $sellerB->id,
                     'name'        => 'メイクセット',
                     'brand_name'  => '',
                     'description' => '便利なメイクアップセット',

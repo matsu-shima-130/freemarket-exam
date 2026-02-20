@@ -12,6 +12,9 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\TradeController;
+use App\Http\Controllers\TradeMessageController;
+use App\Http\Controllers\TradeRatingController;
 
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
@@ -65,6 +68,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/{item}', [PurchaseController::class, 'index'])->name('purchase.index');
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
 
+    Route::get('/purchase/success/{item}', [PurchaseController::class, 'success'])
+    ->name('purchase.success');
+
     Route::get('/purchase/address/{item}', [AddressController::class, 'edit'])->name('purchase.address.edit');
     Route::post('/purchase/address/{item}', [AddressController::class, 'update'])->name('purchase.address.update');
+
+    Route::get('/trades/{purchase}', [TradeController::class, 'show'])->name('trades.show');
+    Route::post('/trades/{purchase}/messages', [TradeMessageController::class, 'store'])
+        ->name('trades.messages.store');
+    Route::post('/trades/{purchase}/ratings', [TradeRatingController::class, 'store'])
+        ->name('trades.ratings.store');
+
+    Route::patch('/trades/{purchase}/messages/{message}', [TradeMessageController::class, 'update'])
+        ->name('trades.messages.update');
+    Route::delete('/trades/{purchase}/messages/{message}', [TradeMessageController::class, 'destroy'])
+        ->name('trades.messages.destroy');
 });

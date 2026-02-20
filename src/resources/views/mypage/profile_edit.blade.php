@@ -91,7 +91,7 @@
 
         if (!fileInput || !imgPreview) return;
 
-        fileInput.addEventListener('change', function (e) {
+        fileInput.addEventListener('change', function (event) {
             const file = e.target.files && e.target.files[0];
             if (!file) return;
 

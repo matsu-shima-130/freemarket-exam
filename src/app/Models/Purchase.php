@@ -25,4 +25,10 @@ class Purchase extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class)->orderBy('created_at');
+    }
+
 }

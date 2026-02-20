@@ -1,0 +1,662 @@
+
+/* =========================
+レイアウト全体の余白無効（取引画面だけフル幅）
+========================= */
+main {
+    padding: 0 !important;
+}
+
+/* 画面全体：左サイド + 右メイン */
+.trade-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 80px);
+
+    /* layout.container の中央寄せを打ち消してフル幅化 */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+左サイド（その他の取引）
+========================= */
+.trade-side {
+    background: #8e8e8e;
+    padding: 16px;
+}
+
+/* 「その他の取引」タイトル */
+.trade-side__title {
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* 取引一覧の縦並び */
+.trade-side__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 取引（商品名）リンク */
+.trade-side__item {
+    display: block;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+
+    padding: 8px 5px;
+    margin: 8px;
+    border-radius: 4px;
+
+    position: relative;
+    /* 未読バッジ用 */
+}
+
+/* 未読バッジ（左サイドの商品名） */
+.trade-side__badge {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+
+    border-radius: 999px;
+    background: #ff5252;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================
+右メイン
+========================= */
+.trade-main {
+    background: #fff;
+}
+
+/* ヘッダー（相手名 + 取引完了ボタン） */
+.trade-main__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 18px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 「〜さんとの取引画面」 */
+.trade-main__partner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 30px;
+    font-weight: 800;
+}
+
+/* 左のアイコン（グレー丸） */
+.trade-main__partnerIcon {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+/* 取引完了ボタン */
+.trade-main__finishBtn {
+    border: none;
+    background: #ff7a7a;
+    color: #fff;
+
+    padding: 12px 22px;
+    border-radius: 999px;
+
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* 無効化ボタン（評価できない場合） */
+.trade-main__finishBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+商品情報（画像 + 商品名 + 価格）
+========================= */
+.trade-product {
+    display: flex;
+    gap: 16px;
+
+    padding: 16px 18px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 商品画像 */
+.trade-product__thumb {
+    width: 240px;
+    height: 240px;
+
+    background: #dcdcdc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+/* 商品画像 img */
+.trade-product__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 商品名 */
+.trade-product__name {
+    font-size: 50px;
+    font-weight: 800;
+    padding-left: 20px;
+    margin-bottom: 8px;
+}
+
+/* 商品価格 */
+.trade-product__price {
+    font-size: 40px;
+    font-weight: 500;
+    padding-left: 20px;
+}
+
+
+/* =========================
+メッセージ一覧
+========================= */
+.trade-messages {
+    padding: 18px;
+    min-height: 380px;
+}
+
+/* 1メッセージの枠 */
+.trade-message {
+    margin-bottom: 18px;
+    max-width: 70%;
+}
+
+/* 相手側（左寄せ） */
+.trade-message--left {
+    margin-right: auto;
+}
+
+/* 自分側（右寄せ） */
+.trade-message--right {
+    margin-left: auto;
+    text-align: right;
+}
+
+/* ユーザー名 */
+.trade-message__user {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* 吹き出し本体 */
+.trade-message__bubble {
+    background: #dcdcdc;
+    border-radius: 6px;
+
+    padding: 10px 12px;
+}
+
+/* メッセージ本文 */
+.trade-message__text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* 添付画像 */
+.trade-message__image {
+    display: block;
+    margin-top: 10px;
+    max-width: 280px;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* 編集・削除リンク */
+.trade-message__actions {
+    font-size: 12px;
+    margin-top: 6px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.trade-message__actions form {
+    margin: 0;
+}
+
+.trade-message__actions a {
+    color: #555;
+    text-decoration: none;
+}
+
+.trade-message__actionBtn {
+    appearance: none;
+    -webkit-appearance: none;
+
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+
+    color: #555;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+
+/* =========================
+入力欄（本文 + 画像 + 送信）
+========================= */
+.trade-form {
+    padding: 18px 18px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.trade-form__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    flex-wrap: nowrap;
+    /* ←下段落ち防止 */
+}
+
+/* バリデーションエラー表示 */
+.trade-form__errors {
+    padding: 10px 18px 0;
+}
+
+.trade-form__errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.trade-form__errors li {
+    color: #d32f2f;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* 本文入力 */
+.trade-form__input {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    height: 48px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+
+    padding: 0 14px;
+    font-size: 14px;
+}
+
+/* ファイル入力（隠す想定なので見た目だけ） */
+.trade-form__file {
+    display: none;
+}
+
+.trade-form__editingNotice {
+    margin: 0 18px 12px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: #fff6d9;
+    border: 1px solid #f2c200;
+    color: #333;
+    font-size: 13px;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.trade-form__cancelEdit {
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 16px;
+    border-radius: 6px;
+
+    border: 1px solid #2f6fff;
+    background: #fff;
+    color: #2f6fff;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.trade-form__cancelEdit:hover {
+    opacity: 0.85;
+}
+
+/* 画像追加ボタン */
+.trade-form__imageBtn {
+    flex: 0 0 auto;
+    height: 48px;
+    border: 1px solid #ff5252;
+    background: #fff;
+    color: #ff5252;
+    border-radius: 6px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* 送信ボタン（紙飛行機） */
+.trade-form__sendBtn {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+}
+
+.trade-form__sendBtn img {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+
+/* =========================
+評価モーダル（取引完了）
+========================= */
+.trade-ratingModal {
+    display: none;
+    /* 初期は非表示 */
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+}
+
+/* 表示中 */
+.trade-ratingModal.is-open {
+    display: block;
+}
+
+/* 背景の暗い幕 */
+.trade-ratingModal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* モーダル本体 */
+.trade-ratingModal__panel {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 600px;
+    max-width: calc(100vw - 40px);
+
+    background: #fffde8;
+    border: 1px solid #333;
+    border-radius: 6px;
+
+    padding: 22px 22px 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* タイトル文言 */
+.trade-ratingModal__title {
+    position: relative;
+    font-weight: 800;
+    font-size: 30px;
+    color: #333;
+    margin: 0 0 10px;
+    padding-bottom: 12px;
+    border-bottom: none;
+}
+
+.trade-ratingModal__title::after {
+    content: "";
+    position: absolute;
+    left: -22px;
+    right: -22px;
+    bottom: 0;
+    border-bottom: 2px solid #333;
+}
+
+/* サブ文言 */
+.trade-ratingModal__sub {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+/* 星エリア（左から連続で★になる） */
+.trade-ratingModal__stars {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    /* 右→左に並べて連続塗り */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px 0 30px;
+    margin: 8px 0 18px;
+    box-sizing: border-box;
+}
+
+/* 下線だけを枠まで伸ばす */
+.trade-ratingModal__stars::after {
+    content: "";
+    position: absolute;
+    left: -22px;
+    right: -22px;
+    bottom: 0;
+    border-bottom: 2px solid #333;
+}
+
+/* radioは非表示 */
+.trade-ratingModal__stars input {
+    display: none;
+}
+
+/* 星（label） */
+.trade-ratingModal__star {
+    cursor: pointer;
+    font-size: 100px;
+    line-height: 1;
+    color: #d9d9d9;
+    /* 未選択はグレー */
+    user-select: none;
+}
+
+/* 選択された星と、それより“後ろ”の星も黄色（見た目は左側まで連続） */
+.trade-ratingModal__stars input:checked~.trade-ratingModal__star {
+    color: #f2c200;
+}
+
+/* hoverでも連続で色が付く */
+.trade-ratingModal__star:hover,
+.trade-ratingModal__star:hover~.trade-ratingModal__star {
+    color: #f2c200;
+}
+
+/* 送信ボタン */
+.trade-ratingModal__submitBtn {
+    display: block;
+    margin-left: auto;
+
+    border: none;
+    background: #ff7a7a;
+    color: #fff;
+    font-weight: 800;
+
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* =========================
+タブレット（768〜850px）だけ上書き
+========================= */
+@media screen and (max-width: 850px) {
+
+    /* レイアウト：左を少し詰める */
+    .trade-layout {
+        grid-template-columns: 200px 1fr;
+    }
+
+    /* ヘッダー：文字を小さく */
+    .trade-main__partner {
+        font-size: 22px;
+        gap: 10px;
+    }
+
+    .trade-main__partnerIcon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .trade-main__finishBtn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    /* 商品画像を小さめに */
+    .trade-product__thumb {
+        width: 170px;
+        height: 170px;
+    }
+
+    .trade-product__name {
+        font-size: 34px;
+        padding-left: 12px;
+    }
+
+    .trade-product__price {
+        font-size: 24px;
+        padding-left: 12px;
+    }
+
+    /* 入力欄 */
+    .trade-form {
+        gap: 8px;
+        padding: 12px 14px;
+    }
+
+    .trade-form__input {
+        height: 40px;
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    .trade-form__row {
+        gap: 8px;
+    }
+
+    .trade-form__imageBtn {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .trade-form__cancelEdit {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .trade-form__sendBtn {
+        width: 44px;
+        height: 40px;
+    }
+
+    .trade-form__sendBtn img {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* モーダル */
+    .trade-ratingModal__panel {
+        width: 420px;
+        padding: 16px 16px 14px;
+        top: 45%;
+    }
+
+    .trade-ratingModal__title {
+        font-size: 16px;
+    }
+
+    .trade-ratingModal__title::after {
+        left: -16px;
+        right: -16px;
+    }
+
+    .trade-ratingModal__sub {
+        font-size: 12px;
+    }
+
+    .trade-ratingModal__star {
+        font-size: 70px;
+    }
+
+    .trade-ratingModal__submitBtn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .trade-ratingModal__stars::after {
+        left: -16px;
+        right: -16px;
+    }
+
+}

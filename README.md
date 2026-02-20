@@ -84,35 +84,38 @@
 - テストでは`.env.testing` を利用して `demo_test` データベースに接続します。
 - 初回のみ、MySQL にテスト用DBを作成してください。
 
-**※ここからは一度 PHP コンテナを出て、ホスト（自分のPCのターミナル）で作業します。**
-
+  **※ここからは一度 PHP コンテナを出て、ホスト（自分のPCのターミナル）で作業します。**
   1. PHPコンテナから退出：
-  ```bash
-  exit
-  ```
+
+     ```bash
+     exit
+     ```
 
   2. MySQL に root でログイン（パスワードは docker-compose.yml の設定により異なる場合があります）
-  ```bash
-  docker compose exec mysql mysql -u root -proot
-  ```
+
+     ```bash
+     docker compose exec mysql mysql -u root -proot
+     ```
 
   3. テスト用DB作成
-  ```bash
-  CREATE DATABASE IF NOT EXISTS demo_test;
-  exit
-  ```
+
+     ```bash
+     CREATE DATABASE IF NOT EXISTS demo_test;
+     exit
+     ```
 
   4. PHPコンテナに入る
-  ```bash
-  docker-compose exec php bash
-  ```
+
+     ```bash
+     docker-compose exec php bash
+     ```
 
   5. マイグレーション（testing 環境）
-  ```bash
-  php artisan config:clear
-  php artisan migrate --env=testing
-  ```
 
+     ```bash
+     php artisan config:clear
+     php artisan migrate --env=testing
+     ```
 
 8. 決済処理（Stripe）
 
@@ -193,23 +196,29 @@
 ## ダミーデータについて
 
 - `php artisan db:seed` を実行すると、以下のテストデータが作成されます。
-  - 出品者ユーザー（seller@example.com）
-  - 商品カテゴリデータ（ファッション / 家電 など）
-  - ダミー商品データ一式（画像付き）
 
-## 追加機能
+### ユーザー（3件）
 
-仕様書に明記されていないが、利便性向上のために以下の機能を追加しています。
+| 区分     | 名前             | メールアドレス        | パスワード  | 備考                   |
+| -------- | ---------------- | --------------------- | ----------- | ---------------------- |
+| 出品者A  | 出品者A          | seller_a@example.com  | password123 | 商品 CO01〜CO05 を出品 |
+| 出品者B  | 出品者B          | seller_b@example.com  | password123 | 商品 CO06〜CO10 を出品 |
+| 未紐づけ | 未紐づけユーザー | user_free@example.com | password123 | 出品・購入など未紐づけ |
 
-- フラッシュメッセージ表示
+### カテゴリ
 
-  - 商品詳細ページで、いいね／コメント送信後に結果をフラッシュメッセージで表示します。
-  - プロフィール編集画面で情報を編集後、結果をフラッシュメッセージで表示します。
+- ファッション / 家電 / インテリア / レディース / メンズ / コスメ / 本 / ゲーム / スポーツ / キッチン / ハンドメイド / アクセサリー / おもちゃ / ベビー・キッズ
 
-- コメント削除機能
+### 商品（10件）
 
-  - ログインユーザーが自分で投稿したコメントに限り、「削除」ボタンが表示され、削除できるようにしています。
-  - Policy を用いて本人以外は削除できないよう制御しています。
+- 腕時計 / HDD / 玉ねぎ3束 / 革靴 / ノートPC / マイク / ショルダーバッグ / タンブラー / コーヒーミル / メイクセット
+- 画像は `storage/app/public/items` 配下へコピーされ、DBには `items/{ファイル名}` 形式で保存されます。
+
+## 追加機能実装
+
+- マイページの「取引中の商品」タブから、取引チャット画面へ遷移できます。
+- 「取引中の商品」には、購入済み（Purchaseが作成されている）取引が表示されます。
+- 取引チャット画面の「その他の取引」には、自分が関わっている取引（購入者・出品者の両方）が一覧表示され、別の取引チャットへ切り替えできます。
 
 ## 開発環境（URL）
 
@@ -217,18 +226,6 @@
 - 会員登録: http://localhost/register
 - ログイン: http://localhost/login
 - phpMyAdmin: http://localhost:8080/
-
-### 主な画面
-
-- プロフィール画面: http://localhost/mypage
-- プロフィール編集画面: http://localhost/mypage/profile
-- 商品出品画面: http://localhost/sell
-- 商品詳細画面: http://localhost/item/{id}
-  - 例）http://localhost/item/1
-- 商品購入画面: http://localhost/purchase/{item_id}
-  - 例）http://localhost/purchase/1
-- 配送先変更画面: http://localhost/purchase/address/{item_id}
-  - 例）http://localhost/purchase/address/1
 
 ## 使用技術（実行環境）
 

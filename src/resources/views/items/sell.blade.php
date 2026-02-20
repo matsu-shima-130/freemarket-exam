@@ -178,8 +178,8 @@
 
         if (!fileInput || !dropArea) return;
 
-        fileInput.addEventListener('change', function (e) {
-            const file = e.target.files && e.target.files[0];
+        fileInput.addEventListener('change', function (event) {
+            const file = event.target.files && event.target.files[0];
             if (!file) return;
 
             // 画像じゃなかったら何もしない

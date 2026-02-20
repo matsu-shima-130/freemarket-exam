@@ -165,7 +165,7 @@
 /* Sold バッジ（左上） */
 .mypage-item__sold {
     position: absolute;
-    left: 8px;
+    right: 8px;
     top: 8px;
     background: #000;
     color: #fff;
@@ -186,4 +186,64 @@
     min-height: 120px;
     font-size: 14px;
     color: #666;
+}
+
+/* タブの未読バッジ */
+.mypage-tab__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: #ff4b4b;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.mypage-item__unreadBadge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+    background: #ff0000;
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    z-index: 3;
+}
+
+.mypage-header__rating {
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    line-height: 1;
+}
+
+.mypage-header__star {
+    color: #f2c200;
+    font-size: 25px;
+}
+
+.mypage-header__star.is-filled {
+    color: #f2c200;
+}
+
+.mypage-header__star.is-empty {
+    color: #d9d9d9;
 }
