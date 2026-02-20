@@ -58,7 +58,13 @@
    php artisan db:seed
    ```
 
-6. メール送信設定（Mailtrap）
+6. ストレージ公開（画像表示用）
+
+   ```bash
+   php artisan storage:link
+   ```
+
+7. メール送信設定（Mailtrap）
 
 - メール認証機能には Mailtrap を使用しています。
 - Mailtrap でテスト用アカウントを作成し、SMTP の接続情報を取得します。
@@ -79,7 +85,7 @@
   ```
 - 会員登録後、/email/verify に遷移し、Mailtrap の受信ボックスに届いたメールから認証リンクをクリックするとメール認証が完了します。
 
-7. テスト用DBの作成
+8. テスト用DBの作成
 
 - テストでは`.env.testing` を利用して `demo_test` データベースに接続します。
 - 初回のみ、MySQL にテスト用DBを作成してください。
@@ -117,7 +123,7 @@
      php artisan migrate --env=testing
      ```
 
-8. 決済処理（Stripe）
+9. 決済処理（Stripe）
 
 - 購入処理には Stripe Checkout（テストモード）を使用しています。
 - Stripe アカウントを作成し、ダッシュボードを テストモード に切り替えます。
@@ -134,7 +140,7 @@
   php artisan config:clear
   ```
 
-9. テスト
+10. テスト
 
 - PHPUnit による Feature テストを実装しています。
   ```bash
